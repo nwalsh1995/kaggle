@@ -2,8 +2,6 @@ import csv
 import sys
 
 import torch
-import torchvision.transforms as transforms
-import torchvision.datasets as dsets
 
 test_file = sys.argv[-3]
 training_file = sys.argv[-2]
@@ -91,6 +89,7 @@ for epoch in range(epochs):
 passenger_ids, test_data, _ = get_dataset(test_file)
 test_data = torch.tensor(test_data)
 with open("model_predictions.csv", "w") as out_file:
+    out_file.write("PassengerId,Survived\n")
     preds = model(test_data)
     for passenger_id, pred in zip(passenger_ids, preds):
         decision = 1
